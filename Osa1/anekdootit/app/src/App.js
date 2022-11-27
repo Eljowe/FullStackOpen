@@ -31,7 +31,7 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0);
-  const [points, setPoints] = useState([]);
+  const [points, setPoints] = useState([0,0,0,0,0,0,0]);
   const [highestvotes, sethighest] = useState(0);
   const max = Math.max(...points);
 

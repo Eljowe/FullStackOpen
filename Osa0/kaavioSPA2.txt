@@ -1,0 +1,4 @@
+title Notes
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: 201 CREATED content: {"Fried Liver", date: "2022-11-28T08:37:12.445Z"}

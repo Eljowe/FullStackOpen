@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import AddPerson from "./components/PersonController.js";
 
 const App = () => {
   const [persons, setPersons] = useState([

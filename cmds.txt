@@ -1,0 +1,10 @@
+npm install -g json-server
+
+npx json-server --port=3001 --watch db.json
+
+npm install axios
+
+npm install json-server --save-dev
+lisää json packages "server": "json-server -p3001 --watch db.json"
+
+npm run server

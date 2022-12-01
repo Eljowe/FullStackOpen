@@ -17,11 +17,11 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
+      <div>debug: {newName}</div>
       <h2>Numbers</h2>
       ...
     </div>
-  )
-
+  );
 }
 
-export default App
+export default App;

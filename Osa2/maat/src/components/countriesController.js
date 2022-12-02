@@ -32,7 +32,7 @@ const Countries = (props) => {
                         <li key={languages[language]}>{languages[language]}</li>
                         )}
                 </ul>
-                <img src={props.countriesToShow[0].flags.png}/>
+                <img src={props.countriesToShow[0].flags.png} alt="flag" />
             </div>
         )
     }

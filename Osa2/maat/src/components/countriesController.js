@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Countries = (props) => {
-    console.log(props.countriesToShow, props.countriesToShow.length)
     if (1<props.countriesToShow.length && props.countriesToShow.length<11) { 
         return(
             <div>
@@ -17,7 +16,7 @@ const Countries = (props) => {
                 Too many matches, specify another filter
             </div>
         )
-    } else if (props.countriesToShow.length == 1) {
+    } else if (props.countriesToShow.length === 1) {
         
         <div>
             <h1>{props.countriesToShow}</h1>

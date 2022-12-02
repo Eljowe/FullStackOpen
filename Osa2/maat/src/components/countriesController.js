@@ -17,14 +17,13 @@ const Countries = (props) => {
             </div>
         )
     } else if (props.countriesToShow.length === 1) {
-        for (let language in props.countriesToShow[0].languages){
-            console.log(language)
-        }
+        const languages = Object.keys(props.countriesToShow[0].languages)
         return(
             <div>
                 <h1>{props.countriesToShow[0].name.common}</h1>
                 <ul>
-                    
+                    {languages.map(language => {
+                        <li key={language}>{language}</li>})}
                 </ul>
             </div>
         )

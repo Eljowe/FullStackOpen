@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Country from './showCountry'
 
 const Countries = (props) => {
@@ -10,7 +10,7 @@ const Countries = (props) => {
                     <div>
                         <li key={country.name.common}>{country.name.common}</li>
                         <form>
-                            <input type="submit" name="add"/>
+                            <button type="submit" >show</button>
                         </form>
                     </div>
                         )}

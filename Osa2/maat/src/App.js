@@ -5,6 +5,7 @@ import Countries from "./components/countriesController";
 function App() {
   const [newSearch, setNewSearch] = useState("");
   const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(false)
 
   useEffect(() => {
     axios

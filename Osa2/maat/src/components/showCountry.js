@@ -13,11 +13,12 @@ const Country = (props) => {
                 <ul>
                     {Object.keys(languages).map(language => 
                         <li key={languages[language]}>{languages[language]}</li>
-                        )}
+                    )}
                 </ul>
                 <img src={props.country.flags.png} alt="flag" />
             </div>
         )
 }
+
 
 export default Country;

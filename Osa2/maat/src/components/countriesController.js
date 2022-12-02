@@ -17,10 +17,17 @@ const Countries = (props) => {
             </div>
         )
     } else if (props.countriesToShow.length === 1) {
-        
-        <div>
-            <h1>{props.countriesToShow}</h1>
-        </div>
+        for (let language in props.countriesToShow[0].languages){
+            console.log(language)
+        }
+        return(
+            <div>
+                <h1>{props.countriesToShow[0].name.common}</h1>
+                <ul>
+                    
+                </ul>
+            </div>
+        )
     }
 }
 

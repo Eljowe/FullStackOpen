@@ -1,4 +1,5 @@
 import React from 'react'
+import Country from './showCountry'
 
 const Countries = (props) => {
     if (1<props.countriesToShow.length && props.countriesToShow.length<11) { 
@@ -6,7 +7,13 @@ const Countries = (props) => {
             <div>
                 <ul>
                     {props.countriesToShow.map(country =>
-                        <li key={country.name.common}>{country.name.common}</li>)}
+                    <div>
+                        <li key={country.name.common}>{country.name.common}</li>
+                        <form>
+                            <input type="submit" name="add"/>
+                        </form>
+                    </div>
+                        )}
                 </ul>
             </div>
         )
@@ -17,23 +24,9 @@ const Countries = (props) => {
             </div>
         )
     } else if (props.countriesToShow.length === 1) {
-        const languages = props.countriesToShow[0].languages
-        console.log(props.countriesToShow[0])
+        const country = props.countriesToShow[0]
         return(
-            <div>
-                <h1>{props.countriesToShow[0].name.common}</h1>
-                capital {props.countriesToShow[0].capital}
-                <br/>
-                area {props.countriesToShow[0].area}
-                <br/>
-                <h3>languages: </h3>
-                <ul>
-                    {Object.keys(languages).map(language => 
-                        <li key={languages[language]}>{languages[language]}</li>
-                        )}
-                </ul>
-                <img src={props.countriesToShow[0].flags.png} alt="flag" />
-            </div>
+            <Country country={country}/>
         )
     }
 }

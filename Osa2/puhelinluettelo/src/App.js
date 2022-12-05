@@ -43,10 +43,23 @@ const App = () => {
 
   const addPerson = (event) => {
     if (persons.filter(person => person.name === newName).length > 0) {
-      alert(`${newName} is already added to phonebook`)
-      setNewName('')
-      setNewNumber('')
-      event.preventDefault()
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const thisPerson = persons.find(p => p.name === newName);
+        
+        DB.update(thisPerson.id, {...thisPerson, number: newNumber})
+        .then(updatedPerson => {
+          setPersons(
+            persons.map(person => (person.name === newName ? updatedPerson : person))
+          );
+        })
+        setNewName('')
+        setNewNumber('')
+        event.preventDefault()
+      } else {
+        setNewName('')
+        setNewNumber('')
+        event.preventDefault()
+      }
     } else {
       event.preventDefault()
       const personObject = {
@@ -62,22 +75,6 @@ const App = () => {
         setNewNumber('')
       })
     }
-  }
-
-  const updatePerson = event => {
-    event.preventDefault()
-    const personObject = {
-      name: newName,
-      number: newNumber
-    }
-  
-    axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
-        setNewName('')
-        setNewNumber('')
-      })
   }
 
   const personsToShow = Filter.length < 1

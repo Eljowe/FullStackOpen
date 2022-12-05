@@ -16,14 +16,9 @@
       "id": 4
     },
     {
-      "name": "marko",
-      "number": "123",
+      "name": "a",
+      "number": "34",
       "id": 5
-    },
-    {
-      "name": "jeppe",
-      "number": "2345432",
-      "id": 6
     }
   ]
 }

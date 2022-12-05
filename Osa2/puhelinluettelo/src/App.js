@@ -63,12 +63,12 @@ const App = () => {
           setPersons(
             persons.map(person => (person.name === newName ? updatedPerson : person))
           );
+          setNotif(`Updated number for user ${thisPerson.name}`)
         })
         .catch(error => {
           console.log(error);
           setErrorMessage("Updating failed");
         });
-        setNotif(`Updated number for user ${thisPerson.name}`)
         setNewName('')
         setNewNumber('')
       } else {

@@ -3,23 +3,13 @@ import AddPerson from "./components/PersonController.js";
 import ShowPersons from "./components/PersonsController.js";
 import FilterForm from "./components/FilterController.js";
 import axios from 'axios'
+import DB from "./services/DB"
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [Filter, setFilter] = useState('')
-
-  useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
-  }, [])
-  console.log('render', persons.length, 'persons')
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -30,6 +20,26 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
+
+  const deletePerson = (name, id) => {
+    return () => {
+      if (window.confirm(`Delete ${name}?`)) {
+        DB.deletePerson(id)
+        .then(()=>{
+          setPersons(persons.filter(person => person.id !==id));
+          setNewName('');
+          setNewNumber('');
+        })
+      }
+    };
+  };
+
+  useEffect(() => {
+    DB.listPersons().then(response => {
+      setPersons(response);
+    });
+  }, []);
+
 
   const addPerson = (event) => {
     if (persons.filter(person => person.name === newName).length > 0) {
@@ -44,10 +54,30 @@ const App = () => {
         number: newNumber,
       }
     
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+      axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
     }
+  }
+
+  const updatePerson = event => {
+    event.preventDefault()
+    const personObject = {
+      name: newName,
+      number: newNumber
+    }
+  
+    axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
   }
 
   const personsToShow = Filter.length < 1
@@ -73,8 +103,12 @@ const App = () => {
       <h2>Numbers</h2>
       <ShowPersons
           personsToShow={personsToShow}
+          deletePerson={deletePerson}
       />
-      <div>debug: Filter:{Filter} name:{newName} number:{newNumber}</div>
+      <div>debug:
+          Filter: {Filter} <br/>
+          name: {newName} <br/>
+          number: {newNumber}</div>
       
     </div>
   );

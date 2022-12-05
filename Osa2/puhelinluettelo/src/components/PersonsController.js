@@ -6,7 +6,7 @@ const ShowPersons = (props) => {
         <div>
             <ul>
                 {props.personsToShow.map(person => 
-                <li key={person.name}> {person.name} - {person.number} </li>
+                <li key={person.name}> {person.name} - {person.number} <button onClick={props.deletePerson(person.name, person.id)}>Delete</button> </li>
                 )}
             </ul>
         </div>

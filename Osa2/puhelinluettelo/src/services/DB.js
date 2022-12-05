@@ -5,8 +5,8 @@ const listPersons = () => {
     return res.then(response => response.data);
 };
 
-const add = () => {
-    const res = axios.post('http://localhost:3001/persons');
+const add = obj => {
+    const res = axios.post('http://localhost:3001/persons', obj);
     return res.then(response => response.data);
 };
 

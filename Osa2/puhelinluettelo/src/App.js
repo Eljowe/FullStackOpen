@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react'
 import AddPerson from "./components/PersonController.js";
 import ShowPersons from "./components/PersonsController.js";
 import FilterForm from "./components/FilterController.js";
-import axios from 'axios'
-import DB from "./services/DB"
+import axios from 'axios';
+import DB from "./services/DB";
+import './index.css';
+import Notification from './components/Notification.js';
+import Notif from './components/Notif.js';
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [Filter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [notif, setNotif] = useState(null)
+
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -27,8 +33,13 @@ const App = () => {
         DB.deletePerson(id)
         .then(()=>{
           setPersons(persons.filter(person => person.id !==id));
+          setNotif(`Deleted ${name}`)
           setNewName('');
           setNewNumber('');
+        })
+        .catch(error => {
+          setPersons(persons.filter(person => person.name !== name));
+          setErrorMessage(`User ${name} is already deleted`);
         })
       }
     };
@@ -53,6 +64,11 @@ const App = () => {
             persons.map(person => (person.name === newName ? updatedPerson : person))
           );
         })
+        .catch(error => {
+          console.log(error);
+          setErrorMessage("Updating failed");
+        });
+        setNotif(`Updated number for user ${thisPerson.name}`)
         setNewName('')
         setNewNumber('')
       } else {
@@ -65,13 +81,16 @@ const App = () => {
         number: newNumber,
       }
     
-      axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
-        setNewName('')
-        setNewNumber('')
+      DB.add(personObject)
+      .then(person => {
+        setPersons(persons.concat(person));
+        setNotif(`Added ${person.name}`);
+        setNewName('');
+        setNewNumber('');
       })
+      .catch(error => {
+        setErrorMessage(`Adding user failed`);
+      });
     }
   }
 
@@ -82,6 +101,8 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={errorMessage} />
+      <Notif message={notif} />
       <h2>Phonebook</h2>
       <FilterForm
         Filter={Filter}

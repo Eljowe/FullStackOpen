@@ -39,7 +39,7 @@ const App = () => {
         })
         .catch(error => {
           setPersons(persons.filter(person => person.name !== name));
-          setErrorMessage(`User ${name} is already deleted`);
+          setErrorMessage(`Information of ${name} has already  been removed from server`);
         })
       }
     };
@@ -63,10 +63,12 @@ const App = () => {
           setPersons(
             persons.map(person => (person.name === newName ? updatedPerson : person))
           );
+          setErrorMessage(null);
           setNotif(`Updated number for user ${thisPerson.name}`)
         })
         .catch(error => {
           console.log(error);
+          setNotif(null);
           setErrorMessage("Updating failed");
         });
         setNewName('')
@@ -85,11 +87,13 @@ const App = () => {
       .then(person => {
         setPersons(persons.concat(person));
         setNotif(`Added ${person.name}`);
+        setErrorMessage(null);
         setNewName('');
         setNewNumber('');
       })
       .catch(error => {
         setErrorMessage(`Adding user failed`);
+        setNotif(null);
       });
     }
   }

@@ -17,6 +17,7 @@ app.use(requestLogger)
 app.use(morgan("tiny"));
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 morgan.token("Body", req => JSON.stringify(req.body));
 
@@ -72,7 +73,7 @@ app.get('/api/persons/:id', (request, res) => {
     res.json(person)
 })
 
-app.delete('/api/persons/:id', (request, res) => {
+app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     persons = persons.filter(person => person.id !== id)
     response.status(204).end()

@@ -27,3 +27,5 @@ import App from './App'
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 
 ctrl+c sulkee palvelimen
+
+MongoDB: mongosh "mongodb+srv://fs.rgv2blj.mongodb.net/myFirstDatabase" --apiVersion 1 --username joelstack

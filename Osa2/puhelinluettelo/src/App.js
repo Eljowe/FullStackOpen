@@ -92,7 +92,8 @@ const App = () => {
         setNewNumber('');
       })
       .catch(error => {
-        setErrorMessage(`Adding user failed`);
+        setErrorMessage(`${error.response.data.error}`);
+        console.log(error.response.data)
         setNotif(null);
       });
     }

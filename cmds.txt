@@ -30,7 +30,10 @@ ctrl+c sulkee palvelimen
 
 MongoDB: mongosh "mongodb+srv://fs.rgv2blj.mongodb.net/myFirstDatabase" --apiVersion 1 --username joelstack
 
+cp -r build ../../Osa3/3
 
+npm install eslint --save-dev
+npx eslint --init
 
 
 

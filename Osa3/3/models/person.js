@@ -15,13 +15,7 @@ mongoose.connect(url)
 var Phonenumbers = [
     {
         validator: function(v) {
-            return /\d{2}-\d{6}/.test(v)
-        },
-        message: props => `${props.value} is not a valid phone number!`
-    },
-    {
-        validator: function(v) {
-            return /\d{3}-\d{5}/.test(v)
+            return /\d{2,3}-\d+/.test(v)
         },
         message: props => `${props.value} is not a valid phone number!`
     },

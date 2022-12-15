@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import AddPerson from "./components/PersonController.js";
 import ShowPersons from "./components/PersonsController.js";
 import FilterForm from "./components/FilterController.js";
-import axios from 'axios';
 import DB from "./services/DB";
 import './index.css';
 import Notification from './components/Notification.js';

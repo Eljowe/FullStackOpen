@@ -32,7 +32,7 @@ const personSchema = new mongoose.Schema({
     name: {
         type: String,
         minlength: 3,
-        required: true
+        required: true,
     },
     number: {
         type: String,
@@ -49,6 +49,5 @@ personSchema.set('toJSON', {
         delete returnedObject.__v
     }
 })
-
 
 module.exports = mongoose.model('Person', personSchema)

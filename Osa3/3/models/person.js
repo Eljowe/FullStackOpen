@@ -21,7 +21,6 @@ var Phonenumbers = [
     },
 ]
 
-
 const personSchema = new mongoose.Schema({
     name: {
         type: String,

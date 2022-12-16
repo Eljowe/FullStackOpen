@@ -32,8 +32,9 @@ MongoDB: mongosh "mongodb+srv://fs.rgv2blj.mongodb.net/myFirstDatabase" --apiVer
 
 cp -r build ../../Osa3/3
 
+npm install --save-dev nodemon
+
 npm install eslint --save-dev
 npx eslint --init
-
 
 

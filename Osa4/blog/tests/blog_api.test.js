@@ -5,7 +5,7 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 
-const testblogs = [
+const initialBlogs = [
     {
         _id: "5a422a851b54a676234d17f7",
         title: "React patterns",
@@ -24,6 +24,14 @@ const testblogs = [
     },
 ]
 
+beforeEach(async () => {
+    await Blog.deleteMany({})
+    let blogObject = new Blog(initialBlogs[0])
+    await blogObject.save()
+    blogObject = new Blog(initialBlogs[1])
+    await blogObject.save()
+  })
+
 describe('Test backend', () => {
     test('blogs are returned as json', async () => {
         await api
@@ -38,6 +46,50 @@ describe('Test backend', () => {
             expect(element.id).toBeDefined()
         });
     })
+    test('blogs can be added', async () => {
+        const testBlog = {
+            title: 'Test',
+            author: 'Test Author',
+            url: 'Test.com',
+            likes: 300
+        }
+        await api.post('/api/blogs')
+        .send(testBlog)
+        .expect(201)
+
+        const res = await api.get('/api/blogs')
+        const blogs = res.body.map(blog => blog.author)
+        expect(blogs).toContain(testBlog.author)
+    })
+    test('blogs length increases when new blog is added', async () => {
+        const testBlog = {
+            title: 'Test',
+            author: 'Test Author',
+            url: 'Test.com',
+            likes: 300
+        }
+        await api.post('/api/blogs')
+        .send(testBlog)
+        .expect(201)
+
+        const res = await api.get('/api/blogs')
+        const len = res.body.length
+        expect(len).toBe(3)
+    });
+    test('if likes are not defined, the default is 0', async () => {
+        const testBlog = {
+            title: 'Test',
+            author: 'Test Author',
+            url: 'Test.com'
+        }
+        await api.post('/api/blogs')
+        .send(testBlog)
+        .expect(201)
+
+        const res = await api.get('/api/blogs')
+        const addedBlog = res.body[2]
+        expect(addedBlog.likes).toBe(0)
+    });
 })
 
 afterAll(() => {

@@ -115,6 +115,25 @@ describe('Test DELETE request', () => {
     })
 })
 
+describe('Test PUT request', () => {
+	test("Update blog", async () => {
+		const atStart = await api.get('/api/blogs')
+		const blogBefore = atStart.body[0]
+		const blog = {
+			author: "new author",
+			url: "new url",
+			likes: 21
+		}
+		await api.put(`/api/blogs/${blogBefore.id}`)
+			.send(blog)
+
+		const blogAfter = await api.get('/api/blogs')
+		expect(blogAfter.body[0].author).toEqual(blog.author)
+		expect(blogAfter.body[0].url).toEqual(blog.url)
+		expect(blogAfter.body[0].likes).toEqual(blog.likes)
+	})
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })

@@ -12,12 +12,19 @@ blogsRouter.post('/', async (request, response) => {
     request.body.likes = 0
   }
   const blog = new Blog(request.body)
+  if (!request.body.title && !request.body.url) {
+    response.status(400).end()
+  } else {
+    await blog.save()
+      .then(savedblog => {
+        response.status(201).json(savedblog)
+      })
+  }
+})
 
-  await blog.save()
-    .then(savedblog => {
-      response.status(201).json(savedblog)
-    })
-    .catch(error => next(error))
+blogsRouter.delete('/:id', async (request, response) => {
+  await Blog.findByIdAndRemove(request.params.id)
+  response.status(204).end()
 })
 
 module.exports = blogsRouter

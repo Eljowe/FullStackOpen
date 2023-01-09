@@ -90,6 +90,29 @@ describe('Test backend', () => {
         const addedBlog = res.body[2]
         expect(addedBlog.likes).toBe(0)
     });
+    test('if no title and url, status code 400', async () => {
+        const testBlog = {
+            author: 'Test Author',
+            likes: 3
+        }
+        await api.post('/api/blogs')
+        .send(testBlog)
+        .expect(400)
+    });
+})
+
+describe('Test DELETE request', () => {
+    test('blogs can be deleted', async () => {
+        const reslen = await api.get('/api/blogs')
+        const len = reslen.body.length
+
+        const res = await api.get('/api/blogs')
+        const blogs = res.body[0]
+        await api.delete(`/api/blogs/${blogs.id}`)
+        const reslen2 = await api.get('/api/blogs')
+        const len2 = reslen2.body.length
+        expect(len2).toEqual(len-1)
+    })
 })
 
 afterAll(() => {

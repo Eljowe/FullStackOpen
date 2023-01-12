@@ -4,11 +4,10 @@ import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import loginService from './services/login'
 import LogoutForm from './components/LogoutForm'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newBlog, setNewBlog] = useState('')
-  const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
@@ -51,6 +50,14 @@ const App = () => {
     }
   }
 
+  const addBlog = (noteObject) => {
+    blogService
+      .create(noteObject)
+      .then(returnedNote => {
+        setBlogs(blogs.concat(returnedNote))
+      })
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -63,6 +70,9 @@ const App = () => {
       :
       <div>
         <p>{user.name} logged in</p>
+        <BlogForm 
+          createBlog={addBlog}
+        />
         <LogoutForm 
           window={window}
         />

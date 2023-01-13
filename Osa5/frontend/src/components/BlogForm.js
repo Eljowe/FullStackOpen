@@ -1,6 +1,11 @@
 import { useState } from 'react'
 
 const BlogForm = ({ createBlog }) => {
+
+  const style = {
+    margin: '5px 0px'
+  }
+
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -51,9 +56,11 @@ const BlogForm = ({ createBlog }) => {
             id="url"
           />
         </div>
-        <button id="create-id" type="submit">
-          create
-        </button>
+        <div style={style}> 
+          <button id="create-id" type="submit">
+            create
+          </button>
+        </div>
       </form>
     </>
   )

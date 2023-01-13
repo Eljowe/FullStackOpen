@@ -32,7 +32,7 @@ blogsRouter.post('/', async (request, response) => {
 			author: body.author,
 			url: body.url,
 			likes: body.likes,
-			user: user._id
+			user: user
 		}
 	)
   if (!request.body.title && !request.body.url) {
@@ -92,7 +92,7 @@ blogsRouter.put('/:id', async (request, response) => {
         .findByIdAndUpdate(request.params.id, newblog, { new: true })
       response.json(updatedBlog)
   } catch (error) {
-		  next(error)
+    return response.status(401).json({ error: 'something went wrong updating blog object' })
   }
 })
 

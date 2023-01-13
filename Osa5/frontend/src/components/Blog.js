@@ -15,6 +15,10 @@ const Blog = ({ blog, update, deleteBlog, user }) => {
     padding: '5px'
   }
 
+  const deleteButtonStyle = {
+    color: 'red'
+  }
+
   const toggle = () => {
     setVisible(!visible)
   }
@@ -31,7 +35,7 @@ const Blog = ({ blog, update, deleteBlog, user }) => {
       {blog.url} <br/>
       {blog.likes} likes <button id='likebutton' onClick={() => like(blog)}>like</button><br />
       {blog.user.username} <br/>
-      <button id='deletebutton' onClick={() => deleteBlog(blog.id)}>delete</button>
+      <button style={deleteButtonStyle} id='deletebutton' onClick={() => deleteBlog(blog.id)}>delete</button>
     </div>
     }
     <button onClick={toggle} type="submit">view</button>

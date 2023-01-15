@@ -9,7 +9,7 @@
     "dev": "nodemon index.js",
     "server": "json-server -p3001 --watch db.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "eslint": "eslint ."
   },
   "author": "",
   "license": "ISC",

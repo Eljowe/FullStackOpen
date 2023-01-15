@@ -80,7 +80,6 @@ blogsRouter.put('/:id', async (request, response) => {
         return response.status(401).json({ error: 'token missing or invalid' })
       }
       const body = request.body
-
       const newblog = {
         title: body.title,
         author: body.author,

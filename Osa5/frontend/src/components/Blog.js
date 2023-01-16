@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 
 
 const Blog = ({ blog, update, deleteBlog, user }) => {
@@ -33,15 +33,23 @@ const Blog = ({ blog, update, deleteBlog, user }) => {
     return(
         <div style={style}>
             {visible === false ?
-                <div>
+                <div className='defaultview'>
                     {blog.title} {blog.author} <button onClick={toggle} type="submit">view</button>
                 </div>
                 :
-                <div>
-                    {blog.title} {blog.author} <button onClick={toggle} type="submit">hide</button> <br/>
-                    {blog.url} <br/>
-                    {blog.likes} likes <button id='likebutton' onClick={() => like(blog)}>like</button><br />
-                    {blog.user.username} <br/>
+                <div className='togglable'>
+                    <div className='authortitle'>
+                        {blog.title} {blog.author} <button onClick={toggle} type="submit">hide</button> <br/>
+                    </div>
+                    <div className='url'>
+                        {blog.url} <br/>
+                    </div>
+                    <div className='likes'>
+                        {blog.likes} likes <button id='likebutton' onClick={() => like(blog)}>like</button><br />
+                    </div>
+                    <div className='username'>
+                        {blog.user.username} <br/>
+                    </div>
                     {sameUser === true ?
                         <button style={deleteButtonStyle} id='deletebutton' onClick={() => {if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {deleteBlog(blog.id)}}}>delete</button>
                         :
@@ -54,9 +62,9 @@ const Blog = ({ blog, update, deleteBlog, user }) => {
     )
 }
 
-Blog.PropTypes = {
-    update: PropTypes.func.isRequired,
-    deleteBlog: PropTypes.func.isRequired,
+Blog.propTypes = {
+    update: propTypes.func.isRequired,
+    deleteBlog: propTypes.func.isRequired,
 }
 
 export default Blog

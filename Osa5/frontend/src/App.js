@@ -89,10 +89,22 @@ const App = () => {
     const likeratio = (a, b) => b.likes - a.likes
 
     const update = async (blogObj, id) => {
-        const updatedBlog = await blogService.update(id, blogObj)
-        updatedBlog.user = blogObj.user
-        const updatedBlogs = [...blogs].map((x) => (x.id !== id ? x : updatedBlog))
-        setBlogs(updatedBlogs.sort(likeratio))
+        try{
+            const updatedBlog = await blogService.update(id, blogObj)
+            updatedBlog.user = blogObj.user
+            const updatedBlogs = [...blogs].map((x) => (x.id !== id ? x : updatedBlog))
+            setBlogs(updatedBlogs.sort(likeratio))
+        } catch (exception) {
+            try {
+                window.localStorage.removeItem('loggedBlogappUser')
+                setUser(null)
+            } catch (exception) {
+                setErrorMessage('error logging out')
+                setTimeout(() => {
+                    setErrorMessage(null)
+                }, 3000)
+            }
+        }
     }
 
     const deleteBlog = async(blogId) => {

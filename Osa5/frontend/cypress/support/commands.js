@@ -26,14 +26,14 @@
 
 Cypress.Commands.add('addBlog', ({ title, author, url, likes }) => {
     cy.request({
-      url: 'http://localhost:8080/api/blogs',
-      method: 'POST',
-      body: { title, author, url, likes },
-      headers: {
-        Authorization: `bearer ${
-          JSON.parse(localStorage.getItem('loggedBlogappUser')).token
-        }`
-      }
+        url: 'http://localhost:8080/api/blogs',
+        method: 'POST',
+        body: { title, author, url, likes },
+        headers: {
+            Authorization: `bearer ${
+                JSON.parse(localStorage.getItem('loggedBlogappUser')).token
+            }`
+        }
     })
     cy.visit('http://localhost:3000')
-  })
+})

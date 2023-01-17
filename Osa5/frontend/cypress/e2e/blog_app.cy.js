@@ -103,8 +103,8 @@ describe('Blog app', function() {
             cy.addBlog(secondmostlikes)
             console.log()
             cy.get('.defaultview').eq(0).should('contain', 'Most likes')
-			cy.get('.defaultview').eq(1).should('contain', 'Second')
-			cy.get('.defaultview').eq(2).should('contain', 'First added')
+            cy.get('.defaultview').eq(1).should('contain', 'Second')
+            cy.get('.defaultview').eq(2).should('contain', 'First added')
 
         })
     })

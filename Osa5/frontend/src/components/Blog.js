@@ -31,7 +31,7 @@ const Blog = ({ blog, update, deleteBlog, user }) => {
     }
 
     return(
-        <div style={style}>
+        <div id='blogitem' style={style}>
             {visible === false ?
                 <div className='defaultview'>
                     {blog.title} {blog.author} <button onClick={toggle} type="submit">view</button>

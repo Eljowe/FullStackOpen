@@ -128,7 +128,7 @@ const App = () => {
                 />
                 :
                 <div>
-                    <p style={{ margin: '0 0 0 5px' }}>{user.name} logged in</p>
+                    <p id="loggedin" style={{ margin: '0 0 0 5px' }}>{user.name} logged in</p>
                     <LogoutForm
                         handleLogout={handleLogout}
                         window={window}

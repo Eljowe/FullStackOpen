@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { showNotification } from "./notificationReducer"
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -32,6 +32,7 @@ const anecdoteReducer = (state = initialState, action) => {
         ...votedAnecdote,
         votes: votedAnecdote.votes +1
       }
+      showNotification('Hello')
       return state.map(anecdote => anecdote.id !== id ? anecdote : updateAnecdote)
       }
     default:
@@ -44,6 +45,13 @@ export const createAnecdote = (anecdote) => {
   return {
     type: 'NEW_ANECDOTE',
     data: asObject(anecdote)
+  }
+}
+
+export const upvote = (anecdote) => {
+  return {
+    type: 'VOTE',
+    data: anecdote
   }
 }
 

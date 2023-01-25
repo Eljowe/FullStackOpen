@@ -5,7 +5,7 @@ const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes)
     const sortByKey = key => (a, b) => a[key] < b[key] ? 1 : -1
     const sorted = anecdotes.slice().sort(sortByKey('votes'))
-  
+
     return(
         <div>
             {sorted.map(anecdote =>

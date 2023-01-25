@@ -1,19 +1,19 @@
 import { useSelector } from 'react-redux'
-import { showNotification } from '../reducers/notificationReducer'
-import store from '../store'
+import notificationReducer, { showNotification } from '../reducers/notificationReducer'
 
 const Notification = () => {
-  const notification = useSelector(showNotification)
+  const notification = useSelector(state => state.notifications);
   const style = {
     border: 'solid',
     padding: 10,
     borderWidth: 1
   }
-  return (
+  console.log(notification.notificationtext)
+  return notification.notificationtext ? (
     <div style={style}>
       {notification.notificationtext}
     </div>
-  )
+  ) :null;
 }
 
 export default Notification;

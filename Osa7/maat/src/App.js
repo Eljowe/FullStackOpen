@@ -2,11 +2,51 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import Countries from "./components/countriesController";
 
+
+const useCountry = (variable) => {
+  const [country, setCountry] = useState()
+  const url = 'https://restcountries.com/v3.1/name/'
+
+  useEffect(() => {
+
+    const fetchCountry = async () => {
+      try {
+        const response = await axios.get(`${url}${variable}?fullText=true`)
+        setCountry(response.data[0])
+      }
+      catch (error) {
+        setCountry(null)
+        console.log(error.response.status)
+      }
+    }
+    if (variable)
+      fetchCountry()
+  }, [variable])
+  return country
+}
+
+const ShowCountry = ({ country }) => {
+  console.log(country)
+	if (!country) {
+
+		return <div>not found...</div>
+	}
+	return (
+		<div>
+			<h3>{country.name.common}</h3>
+			<div>capital {country.capital}</div>
+			<div>population {country.population}</div>
+			<img src={country.flags.png} height='100' alt={`flag of ${country.name.common}`} />
+		</div>
+	)
+}
+
 function App() {
   const [newSearch, setNewSearch] = useState("");
   const [countries, setCountries] = useState([]);
 
   const [showCountry, setShownCountry] = useState();
+  const country = useCountry(newSearch)
 
 
   useEffect(() => {
@@ -37,7 +77,7 @@ function App() {
     <div>
       find countries
       <input value={newSearch} onChange={handleSearchChange}/>
-      <Countries countriesToShow={countriesToShow} showCountry={showCountry} showThisCountry={showThisCountry}/>
+      <ShowCountry country={country} />
     </div>
   )
 

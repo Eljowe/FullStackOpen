@@ -19,6 +19,7 @@ const App = () => {
     }
   ])
 
+
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
